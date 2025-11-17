@@ -1,8 +1,12 @@
+from pathlib import Path
 from typing import Union
 import os
 import json
 
-def read_jsonl(file):
+def read_jsonl(file: Union[str, Path]):
+    if not isinstance(file, str):
+        raise TypeError("file must be str, got {}".format(type(file).__name__))
+
     df = []
     with open(file, mode='r', encoding='utf-8') as reader:
         line = reader.readline()
@@ -12,7 +16,7 @@ def read_jsonl(file):
             line = reader.readline()
     return df
 
-def write_jsonl(obj_list: Union[dict, list[dict]], file: str, force=False, silent=False):
+def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force=False, silent=False):
     if not isinstance(file, str):
         raise TypeError("file must be str, got {}".format(type(file).__name__))
 
@@ -36,7 +40,7 @@ def write_jsonl(obj_list: Union[dict, list[dict]], file: str, force=False, silen
         print('[INFO] save to {}'.format(file))
 
 
-def append_jsonl(obj_list: Union[dict, list[dict]], file: str) -> None:
+def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> None:
     if not isinstance(file, str):
         raise TypeError("file must be str, got {}".format(type(file).__name__))
 
