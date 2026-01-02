@@ -27,7 +27,6 @@ def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force
     dir_path = os.path.dirname(file)
     if dir_path != '':
         os.makedirs(dir_path, exist_ok=True)
-    
 
     if isinstance(obj_list, dict):
         obj_list = [obj_list]
@@ -43,6 +42,10 @@ def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force
 def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> None:
     if not isinstance(file, str):
         raise TypeError("file must be str, got {}".format(type(file).__name__))
+
+    dir_path = os.path.dirname(file)
+    if dir_path != '':
+        os.makedirs(dir_path, exist_ok=True)
 
     if isinstance(obj_list, dict):
         obj_list = [obj_list]
