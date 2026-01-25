@@ -24,7 +24,7 @@ def write_json(obj: Union[dict], file: Union[str, Path], force=False, silent=Fal
     if dir_path != '':
         os.makedirs(dir_path, exist_ok=True)
 
-    with open(file, mode='w', encoding='utf-8') as fp:
+    with open(file, mode='w', encoding='utf-8', newline='\n') as fp:
         json.dump(obj, fp, ensure_ascii=False, indent=4)
         print(file=fp)
     

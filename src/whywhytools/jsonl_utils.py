@@ -28,7 +28,7 @@ def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force
     if dir_path != '':
         os.makedirs(dir_path, exist_ok=True)
     
-    with open(file, mode='w', encoding='utf-8') as fp:
+    with open(file, mode='w', encoding='utf-8', newline='\n') as fp:
         for obj in obj_list:
             json.dump(obj, fp, ensure_ascii=False)
             print(file=fp)
@@ -45,7 +45,7 @@ def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> N
     if dir_path != '':
         os.makedirs(dir_path, exist_ok=True)
     
-    with open(file, mode='a', encoding='utf-8') as fp:
+    with open(file, mode='a', encoding='utf-8', newline='\n') as fp:
         for obj in obj_list:
             json.dump(obj, fp, ensure_ascii=False)
             print(file=fp)
