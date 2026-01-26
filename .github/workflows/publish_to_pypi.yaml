@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # 👈 關鍵：必須開啟 id-token 寫入權限才能進行 OIDC 認證
+      id-token: write # 👈 Critical: id-token write permission is required for OIDC authentication
 
     environment:
       name: testpypi
@@ -45,7 +45,7 @@ jobs:
       with:
         repository-url: https://test.pypi.org/legacy/
         skip-existing: true
-        # 注意：使用 OIDC 時，不需要提供 password 參數
+        # Note: password parameter is not needed when using OIDC
 
   # Job 2: Publish to Real PyPI (Runs only on tags v*)
   publish-to-pypi:
@@ -54,7 +54,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      id-token: write  # 👈 關鍵：必須開啟 id-token 寫入權限
+      id-token: write # 👈 Critical: id-token write permission is required for OIDC authentication
 
     environment:
       name: pypi

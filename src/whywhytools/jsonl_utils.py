@@ -4,7 +4,16 @@ import os
 import json
 from .type_checker import check_file, check_obj_list
 
-def read_jsonl(file: Union[str, Path]):
+def read_jsonl(file: Union[str, Path]) -> list[dict]:
+    """
+    Read a JSONL file and return a list of dictionaries.
+
+    Args:
+        file (Union[str, Path]): The path to the JSONL file.
+
+    Returns:
+        list[dict]: A list containing the JSON objects read from the file.
+    """
     check_file(file)
     
     df = []
@@ -16,7 +25,16 @@ def read_jsonl(file: Union[str, Path]):
             line = reader.readline()
     return df
 
-def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force=False, silent=False):
+def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force=False, silent=False) -> None:
+    """
+    Write a list of dictionaries to a JSONL file.
+
+    Args:
+        obj_list (Union[dict, list[dict]]): A single dictionary or a list of dictionaries to write.
+        file (Union[str, Path]): The path to the output JSONL file.
+        force (bool, optional): If True, overwrite the file if it exists. Defaults to False.
+        silent (bool, optional): If True, suppress print messages. Defaults to False.
+    """
     check_obj_list(obj_list)
     check_file(file)
     
@@ -38,6 +56,13 @@ def write_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path], force
 
 
 def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> None:
+    """
+    Append a list of dictionaries to an existing JSONL file.
+
+    Args:
+        obj_list (Union[dict, list[dict]]): A single dictionary or a list of dictionaries to append.
+        file (Union[str, Path]): The path to the JSONL file.
+    """
     check_obj_list(obj_list)
     check_file(file)
     
