@@ -120,3 +120,54 @@ Save an object to a pickle file.
 * **file** (`Union[str, Path]`): The path to the output pickle file.
 * **force** (`bool`, optional): If True, overwrite the file if it exists. Defaults to False.
 * **silent** (`bool`, optional): If True, suppress print messages. Defaults to False.
+
+---
+
+## Text (`.txt`)
+
+Utilities for handling standard text files.
+
+### `read_file`
+
+```python
+def read_file(file: Union[str, Path], lines: bool = False) -> Union[str, list[str]]
+```
+
+Read a text file and return its content.
+
+**Args:**
+* **file** (`Union[str, Path]`): The path to the text file.
+* **lines** (`bool`, optional): If True, return a list of strings, one for each line. Defaults to False.
+
+**Returns:**
+* `Union[str, list[str]]`: The content of the file as a single string or a list of strings.
+
+---
+
+### `write_file`
+
+```python
+def write_file(lines: Union[str, list[str]], file: Union[str, Path], force=False, silent=False) -> None
+```
+
+Write a string or a list of strings to a text file.
+
+**Args:**
+* **lines** (`Union[str, list[str]]`): A single string or a list of strings to write.
+* **file** (`Union[str, Path]`): The path to the output text file.
+* **force** (`bool`, optional): If True, overwrite the file if it exists. Defaults to False.
+* **silent** (`bool`, optional): If True, suppress print messages. Defaults to False.
+
+---
+
+### `append_file`
+
+```python
+def append_file(lines: Union[str, list[str]], file: Union[str, Path]) -> None
+```
+
+Append a string or a list of strings to an existing text file.
+
+**Args:**
+* **lines** (`Union[str, list[str]]`): A single string or a list of strings to append.
+* **file** (`Union[str, Path]`): The path to the text file.
