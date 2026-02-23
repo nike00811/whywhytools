@@ -1,20 +1,20 @@
-from .jsonl_utils import (
+from .jsonl_manager import (
     read_jsonl,
     write_jsonl,
     append_jsonl
 )
 
-from .json_utils import (
+from .json_manager import (
     read_json,
     write_json,
 )
 
-from .pickle_utils import (
+from .pickle_manager import (
     load_pickle,
     save_pickle,
 )
 
-from .file_utils import (
+from .text_manager import (
     read_file,
     write_file,
     append_file,
