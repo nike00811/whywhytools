@@ -15,7 +15,7 @@ jobs:
   publish-to-testpypi:
     name: Publish to TestPyPI
     needs: test
-    if: github.ref == 'refs/heads/main'  # Only run on main branch pushes
+    if: github.repository == 'whywhybug/whywhytools' && github.ref == 'refs/heads/main'  # Only run on main branch pushes
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -54,7 +54,7 @@ jobs:
   publish-to-pypi:
     name: Publish to PyPI
     needs: test
-    if: startsWith(github.ref, 'refs/tags/v')  # Only run on version tags
+    if: github.repository == 'whywhybug/whywhytools' && startsWith(github.ref, 'refs/tags/v')  # Only run on version tags
     runs-on: ubuntu-latest
     permissions:
       contents: read
