@@ -176,10 +176,10 @@ Append a string or a list of strings to an existing text file.
 
 Utilities for handling PyTorch files. Compared to the original `torch.save` and `torch.load`, `whywhytools` provides built-in path type checking, automatic parent directory creation, and safety guards like `force` argument to prevent accidental overwrites.
 
-### `load_torch`
+### `load_pt`
 
 ```python
-def load_torch(file: Union[str, Path], map_location: Any = None, weights_only: bool = False, **kwargs: Any) -> Any
+def load_pt(file: Union[str, Path], map_location: Any = None, weights_only: bool = False, **kwargs: Any) -> Any
 ```
 
 Read a PyTorch file and return the loaded object.
@@ -195,10 +195,10 @@ Read a PyTorch file and return the loaded object.
 
 ---
 
-### `save_torch`
+### `save_pt`
 
 ```python
-def save_torch(obj: Any, file: Union[str, Path], force: bool = False, silent: bool = False, **kwargs: Any) -> None
+def save_pt(obj: Any, file: Union[str, Path], force: bool = False, silent: bool = False, **kwargs: Any) -> None
 ```
 
 Write an object to a PyTorch file.

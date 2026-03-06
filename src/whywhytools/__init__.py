@@ -21,6 +21,6 @@ from .text_manager import (
 )
 
 from .torch_manager import (
-    load_torch,
-    save_torch,
+    load_pt,
+    save_pt,
 )

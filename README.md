@@ -162,22 +162,22 @@ Handle PyTorch files. Compared to the original `torch.save` and `torch.load`, `w
 
 ```python
 import torch
-from whywhytools import save_torch
+from whywhytools import save_pt
 
 model_data = {'weights': torch.tensor([0.1, 0.5, 0.9])}
-save_torch(model_data, 'model.pt')
+save_pt(model_data, 'model.pt')
 ```
 
 ##### Load PyTorch File
 
 ```python
-from whywhytools import load_torch
+from whywhytools import load_pt
 
-data = load_torch('model.pt')
+data = load_pt('model.pt')
 print(data)
 
 # Load safely with weights_only=True
-safe_data = load_torch('model.pt', weights_only=True)
+safe_data = load_pt('model.pt', weights_only=True)
 ```
 
 ## License

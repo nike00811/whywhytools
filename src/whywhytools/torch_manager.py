@@ -5,7 +5,7 @@ from typing import Union, Any
 from .type_checker import check_type
 from .utils import create_parent_dir
 
-def load_torch(
+def load_pt(
     file: Union[str, Path],
     map_location: Any = None,
     weights_only: bool = False,
@@ -27,7 +27,7 @@ def load_torch(
     import torch
     return torch.load(file, map_location=map_location, weights_only=weights_only, **kwargs)
 
-def save_torch(
+def save_pt(
     obj: Any,
     file: Union[str, Path],
     force: bool = False,
