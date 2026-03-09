@@ -14,23 +14,22 @@ def test_write_and_read_jsonl(tmp_path: Path):
     loaded_data = read_jsonl(test_file)
     assert loaded_data == data
 
-def test_write_jsonl_dict_and_force(tmp_path: Path, capsys):
+def test_write_jsonl_dict_and_force(tmp_path: Path):
     test_file = tmp_path / "test.jsonl"
     single_data = {"id": 1, "name": "A"}
-    
+
     # Write single dict
     write_jsonl(single_data, test_file, silent=True)
     assert read_jsonl(test_file) == [single_data]
-    
+
     new_data = {"id": 2, "name": "B"}
-    # Force=False should not overwrite
-    write_jsonl(new_data, test_file, force=False, silent=True)
+    # force=False should exit with error message
+    with pytest.raises(SystemExit) as exc_info:
+        write_jsonl(new_data, test_file, force=False, silent=True)
+    assert "already exists" in str(exc_info.value)
     assert read_jsonl(test_file) == [single_data]
-    
-    captured = capsys.readouterr()
-    assert "already exists" in captured.out
-    
-    # Force=True should overwrite
+
+    # force=True should overwrite
     write_jsonl(new_data, test_file, force=True, silent=True)
     assert read_jsonl(test_file) == [new_data]
 

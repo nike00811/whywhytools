@@ -19,22 +19,20 @@ def test_write_and_read_json(tmp_path: Path):
     read_data = read_json(test_file)
     assert read_data == data
 
-def test_write_json_force(tmp_path: Path, capsys):
+def test_write_json_force(tmp_path: Path):
     test_file = tmp_path / "test.json"
     data1 = {"v": 1}
     data2 = {"v": 2}
 
     write_json(data1, test_file, silent=True)
-    
-    # Test force=False (default behavior unless explicitly passed)
-    write_json(data2, test_file, force=False, silent=True)
+
+    # force=False should exit with error message
+    with pytest.raises(SystemExit) as exc_info:
+        write_json(data2, test_file, force=False, silent=True)
+    assert "already exists" in str(exc_info.value)
     assert read_json(test_file) == data1
-    
-    # The output should contain "[INFO]" warning about existence
-    captured = capsys.readouterr()
-    assert "already exists" in captured.out
-    
-    # Test force=True
+
+    # force=True should overwrite
     write_json(data2, test_file, force=True, silent=True)
     assert read_json(test_file) == data2
 

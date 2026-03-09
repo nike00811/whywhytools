@@ -18,21 +18,20 @@ def test_write_and_read_file(tmp_path: Path):
     read_content = read_file(test_file, lines=False)
     assert read_content.strip() == "\n".join(lines)
 
-def test_write_file_string_and_force(tmp_path: Path, capsys):
+def test_write_file_string_and_force(tmp_path: Path):
     test_file = tmp_path / "test.txt"
-    
+
     # Single string
     write_file("Initial Content", test_file, silent=True)
     assert read_file(test_file) == "Initial Content\n"
-    
-    # default force=False, shouldn't overwrite
-    write_file("New Content", test_file, force=False, silent=True)
+
+    # force=False should exit with error message
+    with pytest.raises(SystemExit) as exc_info:
+        write_file("New Content", test_file, force=False, silent=True)
+    assert "already exists" in str(exc_info.value)
     assert read_file(test_file, lines=False) == "Initial Content\n"
-    
-    captured = capsys.readouterr()
-    assert "already exists" in captured.out
-    
-    # force=True, should overwrite
+
+    # force=True should overwrite
     write_file("Forced Content", test_file, force=True, silent=True)
     assert read_file(test_file, lines=False) == "Forced Content\n"
 
