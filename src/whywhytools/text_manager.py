@@ -3,7 +3,7 @@ from typing import Union
 import os
 import sys
 from .type_checker import check_type, check_list_type
-from .utils import create_parent_dir
+from .utils import create_parent_dirs
 
 def read_file(file: Union[str, Path], lines: bool = False) -> Union[str, list[str]]:
     """
@@ -52,7 +52,7 @@ def write_file(
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
-    create_parent_dir(file)
+    create_parent_dirs(file)
 
     if isinstance(lines, str):
         lines = [lines]
@@ -74,7 +74,7 @@ def append_file(lines: Union[str, list[str]], file: Union[str, Path]) -> None:
         file (Union[str, Path]): The path to the text file.
     """
     check_type(file, (str, Path))
-    create_parent_dir(file)
+    create_parent_dirs(file)
     
     if isinstance(lines, str):
         lines = [lines]

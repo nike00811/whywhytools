@@ -4,7 +4,7 @@ import os
 import sys
 import json
 from .type_checker import check_type
-from .utils import create_parent_dir
+from .utils import create_parent_dirs
 
 def read_json(file: Union[str, Path]) -> dict:
     """
@@ -50,7 +50,7 @@ def write_json(
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
-    create_parent_dir(file)
+    create_parent_dirs(file)
     
     check_type(obj, dict)
 

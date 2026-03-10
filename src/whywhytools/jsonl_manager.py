@@ -4,7 +4,7 @@ import os
 import sys
 import json
 from .type_checker import check_type, check_list_type
-from .utils import create_parent_dir
+from .utils import create_parent_dirs
 
 def read_jsonl(file: Union[str, Path]) -> list[dict]:
     """
@@ -54,7 +54,7 @@ def write_jsonl(
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
-    create_parent_dir(file)
+    create_parent_dirs(file)
     
     if isinstance(obj_list, dict):
         obj_list = [obj_list]
@@ -78,7 +78,7 @@ def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> N
         file (Union[str, Path]): The path to the JSONL file.
     """
     check_type(file, (str, Path))
-    create_parent_dir(file)
+    create_parent_dirs(file)
     
     if isinstance(obj_list, dict):
         obj_list = [obj_list]

@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Union, Any
 
 from .type_checker import check_type
-from .utils import create_parent_dir
+from .utils import create_parent_dirs
 
 def load_pt(
     file: Union[str, Path],
@@ -57,7 +57,7 @@ def save_pt(
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
-    create_parent_dir(file)
+    create_parent_dirs(file)
 
     import torch
     torch.save(obj, file, **kwargs)

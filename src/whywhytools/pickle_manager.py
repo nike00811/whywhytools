@@ -4,7 +4,7 @@ import os
 import sys
 import pickle
 from .type_checker import check_type
-from .utils import create_parent_dir
+from .utils import create_parent_dirs
 
 def load_pickle(file: Union[str, Path]) -> Any:
     """
@@ -50,7 +50,7 @@ def save_pickle(
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
-    create_parent_dir(file)
+    create_parent_dirs(file)
 
     with open(file, 'wb') as f:
         pickle.dump(obj, f)
