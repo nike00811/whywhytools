@@ -57,7 +57,7 @@ def write_jsonl(
         msg = f"[ERROR] {file} already exists."
         if raise_on_exists:
             raise FileExistsError(msg)
-        sys.exit(msg)
+        sys.exit(msg)  # exit 1
     create_parent_dirs(file)
 
     if isinstance(obj_list, dict):

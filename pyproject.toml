@@ -14,6 +14,7 @@ dependencies = []
 
 [project.optional-dependencies]
 torch = ["torch>=2.0.0"]
+safetensors = ["safetensors"]
 
 [tool.setuptools_scm]
 local_scheme = "no-local-version"
@@ -50,6 +51,8 @@ select = [
 ignore = [
     "E501",  # Ignore line length violations (already handled by line-length)
     "UP015", # Ignore unnecessary mode argument (e.g., mode="r")
+    "E402",  # Ignore module level import not at top of file
+    "I001",  # Ignore unsorted imports
 ]
 
 [tool.ruff.lint.per-file-ignores]
