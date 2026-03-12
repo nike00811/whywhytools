@@ -48,7 +48,8 @@ select = [
     "C4",   # flake8-comprehensions
 ]
 ignore = [
-    "E501", # Ignore line length violations (already handled by line-length)
+    "E501",  # Ignore line length violations (already handled by line-length)
+    "UP015", # Ignore unnecessary mode argument (e.g., mode="r")
 ]
 
 [tool.ruff.lint.per-file-ignores]

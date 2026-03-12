@@ -1,12 +1,15 @@
-from pathlib import Path
-from typing import Union
+"""This module provides utility functions for managing JSON files."""
+
+import json
 import os
 import sys
-import json
+from pathlib import Path
+
 from .type_checker import check_type
 from .utils import create_parent_dirs
 
-def read_json(file: Union[str, Path]) -> dict:
+
+def read_json(file: str | Path) -> dict:
     """
     Read a JSON file and return its content.
 
@@ -18,13 +21,14 @@ def read_json(file: Union[str, Path]) -> dict:
     """
     check_type(file, (str, Path))
 
-    with open(file, mode='r', encoding='utf-8') as reader:
+    with open(file, mode="r", encoding="utf-8") as reader:
         df = json.load(reader)
     return df
 
+
 def write_json(
-    obj: Union[dict],
-    file: Union[str, Path],
+    obj: dict,
+    file: str | Path,
     force: bool = False,
     silent: bool = False,
     raise_on_exists: bool = False,
@@ -46,17 +50,17 @@ def write_json(
     """
     check_type(file, (str, Path))
     if os.path.exists(file) and not force:
-        msg = '[ERROR] {} already exists.'.format(file)
+        msg = f"[ERROR] {file} already exists."
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
     create_parent_dirs(file)
-    
+
     check_type(obj, dict)
 
-    with open(file, mode='w', encoding='utf-8', newline='\n') as fp:
+    with open(file, mode="w", encoding="utf-8", newline="\n") as fp:
         json.dump(obj, fp, ensure_ascii=False, indent=4)
         print(file=fp)
-    
+
     if not silent:
-        print('[INFO] save to {}'.format(file))
+        print(f"[INFO] save to {file}")

@@ -1,12 +1,16 @@
-from pathlib import Path
-from typing import Union, Any
+"""This module provides utility functions for managing Pickle files."""
+
 import os
-import sys
 import pickle
+import sys
+from pathlib import Path
+from typing import Any
+
 from .type_checker import check_type
 from .utils import create_parent_dirs
 
-def load_pickle(file: Union[str, Path]) -> Any:
+
+def load_pickle(file: str | Path) -> Any:
     """
     Load an object from a pickle file.
 
@@ -18,13 +22,14 @@ def load_pickle(file: Union[str, Path]) -> Any:
     """
     check_type(file, (str, Path))
 
-    with open(file, 'rb') as f:
+    with open(file, "rb") as f:
         obj = pickle.load(f)
     return obj
 
+
 def save_pickle(
     obj,
-    file: Union[str, Path],
+    file: str | Path,
     force: bool = False,
     silent: bool = False,
     raise_on_exists: bool = False,
@@ -46,14 +51,14 @@ def save_pickle(
     """
     check_type(file, (str, Path))
     if os.path.exists(file) and not force:
-        msg = '[ERROR] {} already exists.'.format(file)
+        msg = f"[ERROR] {file} already exists."
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
     create_parent_dirs(file)
 
-    with open(file, 'wb') as f:
+    with open(file, "wb") as f:
         pickle.dump(obj, f)
 
     if not silent:
-        print('[INFO] save to {}'.format(file))
+        print(f"[INFO] save to {file}")

@@ -1,17 +1,15 @@
+"""This module provides utility functions for managing PyTorch files."""
+
 import os
 import sys
 from pathlib import Path
-from typing import Union, Any
+from typing import Any
 
 from .type_checker import check_type
 from .utils import create_parent_dirs
 
-def load_pt(
-    file: Union[str, Path],
-    map_location: Any = None,
-    weights_only: bool = False,
-    **kwargs: Any
-) -> Any:
+
+def load_pt(file: str | Path, map_location: Any = None, weights_only: bool = False, **kwargs: Any) -> Any:
     """
     Read a PyTorch file and return the loaded object.
 
@@ -26,15 +24,17 @@ def load_pt(
     """
     check_type(file, (str, Path))
     import torch
+
     return torch.load(file, map_location=map_location, weights_only=weights_only, **kwargs)
+
 
 def save_pt(
     obj: Any,
-    file: Union[str, Path],
+    file: str | Path,
     force: bool = False,
     silent: bool = False,
     raise_on_exists: bool = False,
-    **kwargs: Any
+    **kwargs: Any,
 ) -> None:
     """
     Write an object to a PyTorch file.
@@ -53,14 +53,15 @@ def save_pt(
     """
     check_type(file, (str, Path))
     if os.path.exists(file) and not force:
-        msg = '[ERROR] {} already exists.'.format(file)
+        msg = f"[ERROR] {file} already exists."
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
     create_parent_dirs(file)
 
     import torch
+
     torch.save(obj, file, **kwargs)
 
     if not silent:
-        print('[INFO] save to {}'.format(file))
+        print(f"[INFO] save to {file}")

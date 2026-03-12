@@ -1,12 +1,15 @@
-from pathlib import Path
-from typing import Union
+"""This module provides utility functions for managing JSONL (JSON Lines) files."""
+
+import json
 import os
 import sys
-import json
-from .type_checker import check_type, check_list_type
+from pathlib import Path
+
+from .type_checker import check_list_type, check_type
 from .utils import create_parent_dirs
 
-def read_jsonl(file: Union[str, Path]) -> list[dict]:
+
+def read_jsonl(file: str | Path) -> list[dict]:
     """
     Read a JSONL file and return a list of dictionaries.
 
@@ -17,9 +20,9 @@ def read_jsonl(file: Union[str, Path]) -> list[dict]:
         list[dict]: A list containing the JSON objects read from the file.
     """
     check_type(file, (str, Path))
-    
+
     df = []
-    with open(file, mode='r', encoding='utf-8') as reader:
+    with open(file, mode="r", encoding="utf-8") as reader:
         line = reader.readline()
         while line:
             obj = json.loads(line)
@@ -27,9 +30,10 @@ def read_jsonl(file: Union[str, Path]) -> list[dict]:
             line = reader.readline()
     return df
 
+
 def write_jsonl(
-    obj_list: Union[dict, list[dict]],
-    file: Union[str, Path],
+    obj_list: dict | list[dict],
+    file: str | Path,
     force: bool = False,
     silent: bool = False,
     raise_on_exists: bool = False,
@@ -50,26 +54,26 @@ def write_jsonl(
     """
     check_type(file, (str, Path))
     if os.path.exists(file) and not force:
-        msg = '[ERROR] {} already exists.'.format(file)
+        msg = f"[ERROR] {file} already exists."
         if raise_on_exists:
             raise FileExistsError(msg)
         sys.exit(msg)
     create_parent_dirs(file)
-    
+
     if isinstance(obj_list, dict):
         obj_list = [obj_list]
     check_list_type(obj_list, dict)
-    
-    with open(file, mode='w', encoding='utf-8', newline='\n') as fp:
+
+    with open(file, mode="w", encoding="utf-8", newline="\n") as fp:
         for obj in obj_list:
             json.dump(obj, fp, ensure_ascii=False)
             print(file=fp)
-    
+
     if not silent:
-        print('[INFO] save to {}'.format(file))
+        print(f"[INFO] save to {file}")
 
 
-def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> None:
+def append_jsonl(obj_list: dict | list[dict], file: str | Path) -> None:
     """
     Append a list of dictionaries to an existing JSONL file.
 
@@ -79,12 +83,12 @@ def append_jsonl(obj_list: Union[dict, list[dict]], file: Union[str, Path]) -> N
     """
     check_type(file, (str, Path))
     create_parent_dirs(file)
-    
+
     if isinstance(obj_list, dict):
         obj_list = [obj_list]
     check_list_type(obj_list, dict)
-    
-    with open(file, mode='a', encoding='utf-8', newline='\n') as fp:
+
+    with open(file, mode="a", encoding="utf-8", newline="\n") as fp:
         for obj in obj_list:
             json.dump(obj, fp, ensure_ascii=False)
             print(file=fp)
