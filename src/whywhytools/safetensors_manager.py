@@ -5,7 +5,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-from safetensors.torch import load_file, save_file
+
 
 from .type_checker import check_type
 from .utils import create_parent_dirs
@@ -25,6 +25,8 @@ def load_safetensors(file: str | Path, device: str | int = "cpu") -> Any:
     """
     check_type(file, (str, Path))
     check_type(device, (str, int))
+
+    from safetensors.torch import load_file
 
     return load_file(file, device=device)
 
@@ -61,6 +63,8 @@ def save_safetensors(
             raise FileExistsError(msg)
         sys.exit(msg)  # exit 1
     create_parent_dirs(file)
+
+    from safetensors.torch import save_file
 
     save_file(obj, file, metadata=metadata)
 

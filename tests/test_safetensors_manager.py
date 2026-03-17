@@ -1,5 +1,6 @@
 import pytest
 
+
 torch = pytest.importorskip("torch")
 safetensors = pytest.importorskip("safetensors")
 
