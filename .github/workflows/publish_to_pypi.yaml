@@ -15,7 +15,7 @@ jobs:
   publish-to-testpypi:
     name: Publish to TestPyPI
     needs: test
-    if: github.repository == 'whywhybug/whywhytools' && github.ref == 'refs/heads/main' # Only run on main branch pushes
+    if: github.repository == 'whywhybug/whywhytools' && github.ref_type == 'branch' # Runs on main branch push or manual trigger on a branch
     runs-on: ubuntu-latest
     permissions:
       contents: read
